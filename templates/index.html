@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.3.1.js') }}"></script>
+    <script type="text/javascript" >
+        $(document).ready(function(){
+            $('.info li').each(function(i){
+                if(i>=2){
+                    $(this).css("color",'gray');
+                }
+            });
+            $('.key_word').one("focus",function(){
+                $(this).val('');
+            });
+            $('.searchBtn').mouseover(function(){
+                $(this).css("cursor","pointer");
+                $(this).css("color","blue");
+            });
+            $('.searchBtn').mouseout(function () {
+                $(this).css("color","green");
+            });
+            $('.search').mouseout(function () {
+                $(this).css("color","green");
+            });
+            $('.search').mouseover(function(){
+                $(this).css("cursor","pointer");
+                $(this).css("color","blue");
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="banner">
+        <div class="info">
+            <ul>
+                <li>DALSearch</li>
+                <li>关于我们</li>
+                <li>链接</li>
+                <li>Dropdown</li>
+                <li>不管用的</li>
+                <li style="float: right; width:80px;height:80px"><input type="button" value="Search"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="prim">
+        <div>
+            <img src="{{ url_for('static', filename='dalsearch.jpg') }}"><br/>
+            <form action="/search" method="get">
+                <input type="text" class="key_word" style="width:800px;height:40px; font-size:20px; color:gray" value="关键字在这里 ~ ~" name="wd"/><br/>
+                <input type="submit" class="searchBtn" value="搜搜搜" style="background-color:white; color:green; font-size:16px;width:80px;height:50px; margin-top: 30px; border-color:green;">&nbsp;&nbsp;&nbsp;
+                <input type="button" class="search" value="倍儿爽" style="background-color:white; color:green; font-size:16px;width:80px;height:50px;border-color:green">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
