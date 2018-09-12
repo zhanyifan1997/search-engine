@@ -3,15 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='searchResult.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='searchResult.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename="jquery-3.3.1.js") }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //var url=decodeURI(window.location.href)
+            var wd = window.location.search.split('&')[0];
+            wd= wd.substr(4,wd.length)
+            wd=decodeURI(wd)
+            $('#wd').val(wd);
+           //$('.page a').length
+           var val=$('#wd').val()
+            $('.page a').each(function(i){
+                $(this).attr('href','http://127.0.0.1:5000/search?wd='+ val +"&pageNow="+(i+1));
+            })
+        })
+    </script>
 </head>
 <body>
     <div class="banner">
         <div class="info">
             <ul>
                 <li>DALSearch</li>
-                <li><input type="text" value="Search" style="width:300px;height:30px; font-size:20px; color:gray"></li>
-                <li><input type="button" value="搜索" style="background-color:white; color:green; font-size:16px;width:80px;height:40px; border-color:green;"></li>
+                <form action="/search" method="get">
+                    <li><input type="text" value="Search" name="wd" id="wd" style="width:300px;height:30px; font-size:20px; color:gray"></li>
+                    <li><input type="submit" value="搜索" style="background-color:white; color:green; font-size:16px;width:80px;height:40px; border-color:green;"></li>
+                    <li><input type="hidden" name="pageNow" value="1"></li>
+                </form>
             </ul>
         </div>
     </div>
@@ -41,6 +59,13 @@
                 <div style="clear:left">
                     <span class="font1">Authors</span><br>
                     No rights reserved
+                </div>
+                <div style="margin-bottom:30px;height:30px;">
+                    <ul class="pages">
+                        {%  for i in range(page_count) %}
+                           <li><a href="#" class="page">&lt{{ i + 1 }}&gt</a></li>
+                        {%  endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
